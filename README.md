@@ -20,6 +20,8 @@ Highlights:
 - Runs on `Linux OS`
 - Free software
 
+### Collaboration
+
 I am looking for a web service or data backend project open to innovation.
 Testing the **id-lock** in a real-life example would be great.
 Please send me an e-mail if you know one.
