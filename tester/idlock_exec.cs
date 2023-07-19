@@ -21,7 +21,8 @@ namespace konzol {
     public static System.UInt64 cmd_idx_set;
     public static System.UInt64 cmd_lock_set;
     public static System.UInt64 cmd_lock_query;
-    public static System.UInt64 cmd_lock_lookup;
+    public static System.UInt64 cmd_res_id_lookup;
+    public static System.UInt64 cmd_tr_id_lookup;
     public static System.UInt64 cmd_debug_list;
     //--
       //Command control codes
@@ -36,6 +37,7 @@ namespace konzol {
     public static System.UInt64 response_ok;
     public static System.UInt64 response_wait;
     public static System.UInt64 response_reserved;
+    public static System.UInt64 response_not_found;
     //--
       //Local node / timer status codes
     public static System.UInt64 timer_no_delay;
@@ -86,7 +88,8 @@ namespace konzol {
       idlock_exec.cmd_idx_set= 0x22;
       idlock_exec.cmd_lock_set= 0x31;
       idlock_exec.cmd_lock_query= 0x32;
-      idlock_exec.cmd_lock_lookup= 0x33;
+      idlock_exec.cmd_res_id_lookup= 0x33;
+      idlock_exec.cmd_tr_id_lookup= 0x34;
       idlock_exec.cmd_debug_list= 0x41;
       //--
       idlock_exec.ctrl_switch_P1= 0x01;
@@ -99,6 +102,7 @@ namespace konzol {
       idlock_exec.response_ok= 0x01;
       idlock_exec.response_wait= 0x02;
       idlock_exec.response_reserved= 0x03;
+      idlock_exec.response_not_found= 0x04;
       //--
       idlock_exec.timer_no_delay= 0x01;
       idlock_exec.timer_delay= 0xff;
@@ -270,7 +274,7 @@ namespace konzol {
           throw new System.Exception(
           "idlock_exec.call_ctrl_query() #not supported");
       if (ret.Length==1) return ret;
-      if (ret.Length==5) return ret;
+      if (ret.Length==7) return ret;
       throw new System.Exception(
           "idlock_exec.call_ctrl_query() #output content");}
     //--------
@@ -379,29 +383,49 @@ namespace konzol {
       throw new System.Exception(
           "idlock_exec.call_lock_query() #output content");}
     //--------
-    public static System.UInt64[] call_lock_lookup(
+    public static System.UInt64[] call_res_id_lookup(
         System.UInt64[] t_input) {
       System.String s_xchg;
       System.UInt64[] ret;
       //--
       s_xchg= "";
-      s_xchg+= idlock_exec.cmd_lock_lookup.ToString("x2");
+      s_xchg+= idlock_exec.cmd_res_id_lookup.ToString("x2");
       s_xchg+= "+";
       s_xchg+= t_input[0].ToString("x16");
       //--
       s_xchg= win_com.test_cmd(s_xchg);
       ret= idlock_exec.string_to_integer_array(s_xchg);
-      if ((ret.Length==1) &&
-          (ret[0]==idlock_exec.response_error))
+      if (ret.Length!=2) throw new System.Exception(
+          "idlock_exec.call_res_id_lookup() #output content");
+      if (ret[0]==idlock_exec.response_error)
           throw new System.Exception(
-          "idlock_exec.call_lock_lookup() #error");
-      if ((ret.Length==1) &&
-          (ret[0]==idlock_exec.response_notsupported))
+          "idlock_exec.call_res_id_lookup() #error");
+      if (ret[0]==idlock_exec.response_notsupported)
           throw new System.Exception(
-          "idlock_exec.call_lock_lookup() #not supported");
-      if (ret.Length==1) return ret;
-      throw new System.Exception(
-          "idlock_exec.call_lock_lookup() #output content");}
+          "idlock_exec.call_res_id_lookup() #not supported");
+      return ret;}
+    //--------
+    public static System.UInt64[] call_tr_id_lookup(
+        System.UInt64[] t_input) {
+      System.String s_xchg;
+      System.UInt64[] ret;
+      //--
+      s_xchg= "";
+      s_xchg+= idlock_exec.cmd_tr_id_lookup.ToString("x2");
+      s_xchg+= "+";
+      s_xchg+= t_input[0].ToString("x16");
+      //--
+      s_xchg= win_com.test_cmd(s_xchg);
+      ret= idlock_exec.string_to_integer_array(s_xchg);
+      if (ret.Length!=2) throw new System.Exception(
+          "idlock_exec.call_tr_id_lookup() #output content");
+      if (ret[0]==idlock_exec.response_error)
+          throw new System.Exception(
+          "idlock_exec.call_tr_id_lookup() #error");
+      if (ret[0]==idlock_exec.response_notsupported)
+          throw new System.Exception(
+          "idlock_exec.call_tr_id_lookup() #not supported");
+      return ret;}
     //--------
     public static System.UInt64[] debug_list(
         System.UInt64[] t_input) {

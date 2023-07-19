@@ -265,10 +265,14 @@ namespace konzol {
       s1= idlock_xchg.diag_event_flags.ToString("x6");
       s_out+= "[error_flags: 0x"+s1+"] ";
       //--
-      //--"[load: 99 %]"
-      s1= System.String.Format("{0,2}",
-          idlock_xchg.local_load.ToString("D"));
-      s_out+= "[load: "+s1+" %]";
+      //--"[load:999 /999 /999 %]"
+      s1= System.String.Format("{0,3}",
+          idlock_xchg.local_load_last.ToString("D"));
+      s2= System.String.Format("{0,3}",
+          idlock_xchg.local_load_avg.ToString("D"));
+      s3= System.String.Format("{0,3}",
+          idlock_xchg.local_load_max.ToString("D"));
+      s_out+= "[load:"+s1+" /"+s2+" /"+s3+" %]";
       //--
       s_out= System.String.Format("{0,-70}", s_out);
       System.Console.WriteLine(s_out);

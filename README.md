@@ -12,12 +12,13 @@ Highlights:
 - All-to-all topology
 - Immune to the split-brain problem
 - Synchronous data replication
-- Strong consistency support
-- Supports parallel jobs
-- Non-exclusive tool
-- Its design can support audit trail
+- Strong consistency
+- Parallel jobs
+- Rate-limiting
+- Audit trail
 - Communication via text messages
 - Runs on `Linux OS`
+- Non-exclusive tool
 - Free software
 
 ### Collaboration
@@ -61,9 +62,9 @@ ls -la
 ```
 - Go into the `build` folder of the project and start the **id-lock** three times:
 ```bash
-./id-lock-0.0.1 c501 &
-./id-lock-0.0.1 c502 &
-./id-lock-0.0.1 c503 &
+./id-lock-0.0.2 c501 &
+./id-lock-0.0.2 c502 &
+./id-lock-0.0.2 c503 &
 ```
 - Figure out the local IP of the `WSL 2` guest:
 ```bash
@@ -76,7 +77,7 @@ Update the IP address there.
 - Read this page if a firewall problem arises: https://support.microsoft.com/en-us/windows/risks-of-allowing-apps-through-windows-defender-firewall-654559af-3f54-3dcf-349f-71ccd90bcc5c
 - The **id-lock** and **id-test** instances will pair up automatically.
 The protocol has its starting phases before it switches to fully operational mode.
-A running tester looks like the `GIF` video below:
+A running tester looks like the `GIF` video below (version 0.0.1):
 ![screen-capture](https://github.com/Andrew4/id_lock/assets/6005439/4ec4eeec-1a06-4eb2-811c-ba234d89e5cb)
 
 The `[error_flags: 0x000000]` field in the first line reports errors.

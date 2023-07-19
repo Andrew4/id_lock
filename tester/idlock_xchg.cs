@@ -54,7 +54,9 @@ namespace konzol {
     public static System.UInt64 local_status_aux;
     public static System.UInt64 local_status_cluster;
     public static System.UInt64 local_delay;
-    public static System.UInt64 local_load;
+    public static System.UInt64 local_load_last;
+    public static System.UInt64 local_load_avg;
+    public static System.UInt64 local_load_max;
     //--
     public static System.UInt64 jiffy_multiplier;
     public static System.Int32 portbase_com;
@@ -97,7 +99,9 @@ namespace konzol {
       //--
       idlock_xchg.local_status= 0;
       idlock_xchg.local_delay= idlock_exec.timer_delay;
-      idlock_xchg.local_load= 0;
+      idlock_xchg.local_load_last= 0;
+      idlock_xchg.local_load_avg= 0;
+      idlock_xchg.local_load_max= 0;
       //--
       idlock_xchg.jiffy_multiplier= 4;  //2..63
         //One jiffy==20 millisecond. Keep this value above the
@@ -264,14 +268,16 @@ namespace konzol {
       //--
       output= idlock_exec.call_ctrl_query();
       //--
-      if (output.Length< 5) throw new System.Exception(
+      if (output.Length< 7) throw new System.Exception(
           "idlock_exec.query_local_stat() error report");
       //--
       idlock_xchg.local_status= output[0];
-      idlock_xchg.local_delay= output[1];
-      idlock_xchg.local_load= output[2];
-      idlock_xchg.local_status_aux= output[3];
-      idlock_xchg.local_status_cluster= output[4];
+      idlock_xchg.local_status_aux= output[1];
+      idlock_xchg.local_status_cluster= output[2];
+      idlock_xchg.local_delay= output[3];
+      idlock_xchg.local_load_last= output[4];
+      idlock_xchg.local_load_avg= output[5];
+      idlock_xchg.local_load_max= output[6];
       //--
       return;}
     //--------
