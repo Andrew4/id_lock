@@ -78,7 +78,7 @@ Update the IP address there.
 - The **id-lock** and **id-test** instances will pair up automatically.
 The protocol has its starting phases before it switches to fully operational mode.
 A running tester looks like the `GIF` video below (version 0.0.1):
-![screen-capture](https://github.com/Andrew4/id_lock/assets/6005439/4ec4eeec-1a06-4eb2-811c-ba234d89e5cb)
+![screen-capture](https://github.com/Andrew4/id_lock/assets/6005439/6f63f106-31c2-4e6a-a45d-f59ab0ad3b2d)
 
 The `[error_flags: 0x000000]` field in the first line reports errors.
 The lowest byte indicates errors in the protocol.
