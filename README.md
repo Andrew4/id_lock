@@ -1,43 +1,18 @@
 
 # Introduction
 
-This project offers a data replication tool.
+This project offers a consensus algorithm.
+It helps build a detailed data layer of an application cluster.
 
-The **id-lock** is a data flow controller.
-It offers services for real-time application-level data replication.
-Services include cluster-wide resource lock and notifications to organize the data flow.
-
-Highlights:
-- Multi-leader architecture
-- All-to-all topology
-- Immune to the split-brain problem
-- Synchronous data replication
-- Strong consistency
-- Parallel jobs
-- Rate-limiting
-- Audit trail
-- Communication via text messages
-- Runs on `Linux OS`
-- Non-exclusive tool
-- Free software
-
-### Collaboration
-
-I am looking for a web service or data backend project open to innovation.
-Testing the **id-lock** in a real-life example would be great.
-Please send me an e-mail if you know one.
-
-### Early stage warning
-
-This project has yet to get into shape to challenge any mature product already in the market.
+I packaged the algorithm and its accessories in a program that runs on `Linux`.
+If you need the algorithm on a microcontroller, contact me.
 
 ---
 
-## Protocol tester (for developers only)
+## Project tester
 
 You can find the **id-test** in the `tester` folder.
 I use that `C#` console application to simulate data flow that tests the **id-lock** for bugs and performance.
-The protocol seems bug-free, but there is only that for now.
 You can try it on your computer if you build a compatible testing environment with mine.
 
 - I am using `Windows 10`.
@@ -76,12 +51,12 @@ Update the IP address there.
 - Start the `id-test.exe` three times.
 - Read this page if a firewall problem arises: https://support.microsoft.com/en-us/windows/risks-of-allowing-apps-through-windows-defender-firewall-654559af-3f54-3dcf-349f-71ccd90bcc5c
 - The **id-lock** and **id-test** instances will pair up automatically.
-The protocol has its starting phases before it switches to fully operational mode.
+The protocol has its starting phases.
 A running tester looks like the `GIF` video below (version 0.0.1):
 ![screen-capture](https://github.com/Andrew4/id_lock/assets/6005439/6f63f106-31c2-4e6a-a45d-f59ab0ad3b2d)
 
 The `[error_flags: 0x000000]` field in the first line reports errors.
-The lowest byte indicates errors in the protocol.
+The lowest byte indicates errors in the algorithm.
 The middle byte indicates warnings or errors in the **id-test** application.
 Please send me feedback if any other value than `0x000000` shows up.
 
